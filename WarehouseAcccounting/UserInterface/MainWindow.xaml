@@ -7,6 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <TextBox Name="Usd_sale" HorizontalAlignment="Left" Margin="68,35,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="62" BorderBrush="Black" BorderThickness="2px"/>
+        <TextBox Name="Usd_buy" HorizontalAlignment="Left" Margin="162,36,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="66" BorderBrush="Black" BorderThickness="2px" />
+        <Label Content="USD" HorizontalAlignment="Left" Margin="22,32,0,0" VerticalAlignment="Top"/>
+        <Label Content="Sale" HorizontalAlignment="Left" Margin="83,9,0,0" VerticalAlignment="Top"/>
+        <Label Content="Buy" HorizontalAlignment="Left" Margin="180,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.495,0.441"/>
+        <TextBox Name="Eur_sale" HorizontalAlignment="Left" Margin="68,71,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="62" BorderBrush="Black" BorderThickness="2px"/>
+        <TextBox Name="Eur_buy" HorizontalAlignment="Left" Margin="164,71,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="62" BorderBrush="Black" BorderThickness="2px" RenderTransformOrigin="-0.032,0.102"/>
+        <Label Content="EUR" HorizontalAlignment="Left" Margin="22,65,0,0" VerticalAlignment="Top"/>
+        <Button Content="Refresh currency" HorizontalAlignment="Left" Margin="99,115,0,0" VerticalAlignment="Top" Width="96" Height="23" Click="RefreshCurrency_Click"/>
 
     </Grid>
 </Window>
