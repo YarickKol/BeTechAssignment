@@ -8,6 +8,6 @@ namespace BusinessLogicLayer.Interfaces
         IEnumerable<T> GetAllItems();       
         T GetItemById(int id);
         bool CreateItem(T item);
-        bool UpdateItem(T item);
+        
     }
 }
