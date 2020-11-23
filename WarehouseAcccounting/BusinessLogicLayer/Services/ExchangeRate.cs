@@ -6,8 +6,7 @@ namespace BusinessLogicLayer
     public class ExchangeRate
     {
         private  string  url = "https://api.privatbank.ua/p24api/pubinfo?exchange&coursid=5";
-        public decimal Sale { get; set; }
-        public decimal Buy { get; set; }
+        
 
         public ExchangeRate()
         {
@@ -48,7 +47,7 @@ namespace BusinessLogicLayer
             return null;
         }
 
-        public void SetValues(string currencyType)
+        public decimal SetValues(string currencyType)
         {
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(GetValues(currencyType));
@@ -56,9 +55,9 @@ namespace BusinessLogicLayer
             XmlNodeList xmlNodeList = xmlDocument.SelectNodes("exchangerate");
             foreach (XmlNode n in xmlNodeList)
             {
-                Buy = decimal.Parse(n.SelectSingleNode("@buy").Value, CultureInfo.InvariantCulture);
-                Sale = decimal.Parse(n.SelectSingleNode("@sale").Value, CultureInfo.InvariantCulture);
+                return decimal.Parse(n.SelectSingleNode("@sale").Value, CultureInfo.InvariantCulture);
             }
+            return 0;
         }
     }
 }

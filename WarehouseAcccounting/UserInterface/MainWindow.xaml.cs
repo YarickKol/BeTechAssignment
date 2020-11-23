@@ -1,8 +1,10 @@
-﻿using BusinessLogicLayer;
-using System.Windows;
-using BusinessLogicLayer.Interfaces;
-using BusinessLogicLayer.Repositories;
+﻿using System.Windows;
 using DataAccesLayer;
+using BusinessLogicLayer;
+using DataAccesLayer.Interfaces;
+using BusinessLogicLayer.Services;
+using System.Collections.ObjectModel;
+using BusinessLogicLayer.ModelDTO;
 
 namespace UserInterface
 {
@@ -11,29 +13,47 @@ namespace UserInterface
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        private ICurrencyRepository _repository;
-        ExchangeRate rate;
-        public MainWindow(ICurrencyRepository repository)
+        private CurrencyService currencyService;
+        private SearchingService searchingService;
+        private ObservableCollection<ProductDTO> products;
+        public ObservableCollection<ProductDTO> Products
         {
-            InitializeComponent();
-            rate = new ExchangeRate();
-            _repository = repository;
+            get
+            {
+                products = new ObservableCollection<ProductDTO>(searchingService.GetProducts());
+                return products;
+            }
+            set
+            {
+                products = value;                
+            }
+        }
+
+
+        public MainWindow()
+        {
+            InitializeComponent();           
+            currencyService = new CurrencyService(new WarehouseUnitOfWork());
+            searchingService = new SearchingService(new WarehouseUnitOfWork());
         }
        
 
         private void RefreshCurrency_Click(object sender, RoutedEventArgs e)
-        {
-            rate.SetValues("USD");
-            Usd_buy.Text = rate.Buy.ToString();
-            Usd_sale.Text = rate.Sale.ToString();
-            _repository.UpdateItem("USD", rate.Buy);
+        {         
+          
+            currencyService.UpdateCurrencyRate("USD");
+            Usd_sale.Text = currencyService.Rate.ToString();
 
-
-            rate.SetValues("EUR");
-            Eur_buy.Text = rate.Buy.ToString();
-            Eur_sale.Text = rate.Sale.ToString();
-            _repository.UpdateItem("EUR", rate.Buy);
+            currencyService.UpdateCurrencyRate("EUR");
+            Eur_sale.Text = currencyService.Rate.ToString();
+           
         }
+
+        private void ShowProducts_Click(object sender, RoutedEventArgs e)
+        {
+            productList.ItemsSource = Products;
+        }
+
+        
     }
 }
